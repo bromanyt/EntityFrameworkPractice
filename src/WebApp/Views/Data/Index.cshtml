@@ -1,0 +1,17 @@
+﻿@{
+    ViewData["Title"] = "Data";
+}
+
+<div class="container-flex-column">
+    <button class="btn-beige margin-after-btn" onclick="location.href='/Home/Index'">Back</button>
+    <h5>There are several tables in the database "Retail": </h5>
+    <div><a asp-controller="Data" asp-action="ShowTable" asp-route-tableName="PersonalInformation" >Persons</a></div>
+    <div><a asp-controller="Data" asp-action="ShowTable" asp-route-tableName="Card" >Cards</a></div>
+    <div><a asp-controller="Data" asp-action="ShowTable" asp-route-tableName="Transaction" >Transactions</a></div>
+    <div><a asp-controller="Data" asp-action="ShowTable" asp-route-tableName="Check" >Checks</a></div>
+    <div><a asp-controller="Data" asp-action="ShowTable" asp-route-tableName="ProductGrid" >Product Grid</a></div>
+    <div><a asp-controller="Data" asp-action="ShowTable" asp-route-tableName="Store" >Stores</a></div>
+    <div><a asp-controller="Data" asp-action="ShowTable" asp-route-tableName="SkuGroup" >Sku Groups</a></div>
+    <div><a asp-controller="Data" asp-action="ShowTable" asp-route-tableName="DateOfAnalysisFormation" >Analysis Dates</a></div>
+</div>
+

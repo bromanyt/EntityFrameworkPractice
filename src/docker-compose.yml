@@ -1,0 +1,31 @@
+services:
+  db:
+    container_name: retail-db
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: retail
+      POSTGRES_PASSWORD: 11110111v
+    restart: always
+    volumes:
+      - ./Database_Retail/StartScripts:/docker-entrypoint-initdb.d
+      - data_retail:/var/lib/postgresql/data
+
+  webapp:
+    container_name: retail-webapp
+    image: retail_web_app
+    build: ./WebApp/.
+    restart: on-failure
+    volumes:
+      - data_retail:/var/lib/postgresql/data
+
+  server:
+    container_name: retail-server
+    image: nginx
+    ports:
+      - 7639:8080
+    volumes:
+      - ./ServerNginx/nginx.conf:/etc/nginx/nginx.conf
+
+volumes:
+  data_retail:
+    name: "retail_data"

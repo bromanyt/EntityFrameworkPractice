@@ -1,0 +1,24 @@
+﻿@{
+    ViewData["Title"] = "Add";
+}
+
+@model IRetailTable
+
+<div class="container-flex-column">
+<h4>Add</h4>
+
+@if (Model is not null)
+{
+    @using (@Html.BeginForm($"AddObject", "Data", FormMethod.Post, new { id = "editForm" }))
+        {
+        <input name="modelType" hidden="hidden" type="text" value="@Model.GetType().Name" />
+        @Html.EditorForModel(@Model)
+    }
+    <p>
+		<button class="btn-orange" onclick="show('confirm')">Add</button>
+		<button class="btn-beige" type="reset" onclick="history.back();">Cancel</button>
+	</p>
+}
+</div>
+
+@await Html.PartialAsync("ConfirmWindow")

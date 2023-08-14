@@ -1,0 +1,47 @@
+﻿@{
+    ViewData["Title"] = "Table";
+    var table = ViewData["TableName"];
+}
+@model List<IRetailTable>
+
+<div class="container-flex-row">
+    <button class="btn-beige margin-after-btn margin-between-btn" onclick="location.href='/Data/Index'">Back</button>
+    <button class="btn-beige margin-after-btn margin-between-btn" onclick="location.href='/Data/Add/@table'">Add +</button>
+	<button class="btn-beige margin-after-btn margin-between-btn" onclick="show('import')">Import .csv</button>
+	<button class="btn-beige margin-after-btn margin-between-btn" onclick="show('export')">Export .csv</button>
+
+</div>
+@if (Model is not null && Model.Count > 0)
+{
+        <div class="container-flex-column" style="margin-top:0px">
+            <table class="table">
+                <thead>
+                    <tr>
+                        @foreach (string name in Model[0].GetColumnNames())
+                        {
+                            <th>@name</th>
+                        }
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (int e = 0; e < Model.Count; e++)
+                    {
+                        var rows = Model[e].GetRows();
+                        <tr id="@e">
+                            @for (int c = 0; c < rows.Count; c++)
+                            {
+                                <td>@rows[c]</td>
+                            }
+                        <td style="text-align:end">
+                            <button class="btn-beige" onclick="Modify('Edit', @e, '@Model[0].GetTableName()')">Edit</button>
+                            <button class="btn-orange" onclick="Modify('Delete', @e, '@Model[0].GetTableName()')">Delete</button>
+                        </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+ }
+    @await Html.PartialAsync("DeleteWindow")
+    @await Html.PartialAsync("ExportWindow", new ExportViewModel{Table=Model!})
+	@await Html.PartialAsync("ImportWindow")

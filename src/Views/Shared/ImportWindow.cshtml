@@ -1,0 +1,17 @@
+﻿@{
+	IFormFile? fromFile= null!;
+	var table = ViewData["TableName"];
+}
+
+<div class="overlay" id="import">
+	<h4>Import Table from .CSV or .TSV File</h4>
+	<form action="/Data/Import/@table/FromFile/Delimiter" enctype="multipart/form-data" method="post">
+		<input class="input-file" id="fromFile" type="file" name="FromFile" asp-for="@fromFile" accept=".csv,.tsv"  required/> <br />
+		<label for="delim">Enter delimiter (for .csv only):</label>
+		<input id="delim" name="Delimiter" type="text" value="," maxlength="1" required style="width: 60px" />
+		<div class="container-one-line" style="justify-content:center;margin-top:10px">
+			<button class="btn-orange  margin-between-btn" type="submit" onclick="hide('import')">Import</button>
+			<button class="btn-beige" type="reset" onclick="hide('import')">Cancel</button>
+		</div>
+	</form>
+</div>
