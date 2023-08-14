@@ -1,0 +1,25 @@
+﻿@model List<IRetailTable>
+
+<div class="container-flex-column" style="margin-top:0px">
+    <table class="table">
+        <thead>
+            <tr>
+                @foreach (string name in Model[0].GetColumnNames())
+                {
+                    <th>@name</th>
+                }
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (IRetailTable element in Model)
+            {
+                <tr>
+                    @foreach (string name in element.GetRows())
+                    {
+                        <td>@Html.DisplayFor(element => name)</td>
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

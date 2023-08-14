@@ -1,0 +1,17 @@
+﻿@{
+    ViewData["Title"] = "Login";
+}
+
+<div class="container-flex-row">
+    <form method="post" action="/Account/Login/user/password" id="loginForm">
+        <div>
+            <label>Login:</label>
+            <input type="text" id="login" name="userName" required />
+        </div>
+        <div>
+            <label>Password:</label>
+            <input name="password" type="password" required />
+        </div>
+            <p><input type="submit" value="Log in" /> </p>
+    </form>
+</div>

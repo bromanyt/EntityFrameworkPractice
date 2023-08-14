@@ -1,0 +1,43 @@
+﻿@{
+	ViewData["Title"] = "➤ OFFERS BY VISITS FREQUENCE INCREASE";
+	@model FrequencyVisitsViewModel
+	string firstDate = @Model.FirstDate.ToString("yyyy-MM-dd");
+	string lastDate = @Model.LastDate.ToString("yyyy-MM-dd");
+}
+
+<div class="container-flex-column" >
+	<h4>@ViewData["Title"]</h4>
+
+	<div class="container-flex-row" style="margin-top:0px">
+    <button class="btn-beige margin-after-btn margin-between-btn" onclick="location.href='/Operation/Index'">Back</button>
+	<button class="btn-beige margin-after-btn margin-between-btn" form="do_fn_increasing_frequency_of_visits" type="submit">Show Offers</button>
+		<button class="btn-beige margin-after-btn margin-between-btn" onclick="location.href='/Operation/ClearInput/@Model.ModelName'">Clear Input</button>
+		<button class="btn-beige margin-after-btn margin-between-btn" onclick="show('export')">Export .csv</button>
+	</div>
+
+	<form action="/Operation/FrequencyVisits/ShowResultFrequencyVisits" id="do_fn_increasing_frequency_of_visits" method="post">
+	<div class="grid-container">
+		<label for="first-date"><b>The First Date of the Period:</b></label>
+		<input name="FirstDate" id="first-date" type="date" value="@firstDate" style="width:150px" />
+		<label for="last-date"><b>The Last Date of the Period:</b></label>
+		<input name="LastDate" id="last-date" type="date" value="@lastDate" style="width:150px" />
+		<label for="added_transactions_number"><b>The Added Number of Transactions:</b></label>
+		<input name="AddedTransactionsNumber" id="added_transactions_number" type="number" value="@Model.AddedTransactionsNumber" min="0" style="width:150px" />
+		<label for="max_churn_index"><b>The Maximum Churn Index:</b></label>
+			<input name="MaxChurnIndex" id="max_churn_index" type="number" value="@Model.MaxChurnIndex" min="0" step="0.01" style="width:150px" />
+		<label for="max_share_discount_transactions"><b>The Maximum Share of Transactions with a Discount:</b></label>
+			<input name="MaxShareDiscountTransactions" id="max_share_discount_transactions" type="number" value="@Model.MaxShareDiscountTransactions" min="0" step="0.01" style="width:150px" />
+		<label for="margin_share"><b>The Allowable Share of Margin (%):</b></label>
+			<input name="MarginShare" id="margin_share" type="number" value="@Model.MarginShare" min="0" step="0.01" style="width:150px" />
+	</div>
+	</form>
+	@if (Model.Table.Any())
+	{
+		@await Html.PartialAsync("TableForOffers", Model.Table)
+	}
+	@if (Model.EmptyResult.Any())
+	{
+		<p>@Model.EmptyResult</p>
+	}
+	@await Html.PartialAsync("ExportWindow", new ExportViewModel{Table=Model.Table, IsEntity = false})
+</div>
